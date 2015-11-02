@@ -25,6 +25,20 @@ class Play {
   }
 
   /**
+   * Inizializza la giocata corrente
+   */
+  public function startPlay() {
+    $this->_play_provider->startPlay();
+  }
+
+  /**
+   * Termina la giocata corrente
+   */
+  public function endPlay() {
+    $this->_play_provider->endPlay();
+  }
+
+  /**
    * Restituisce la percentuale di tempo rimanente per assegnare le vittorie
    * 
    * @return float

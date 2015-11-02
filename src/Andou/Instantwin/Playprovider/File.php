@@ -15,10 +15,52 @@ namespace Andou\Instantwin\Playprovider;
 class File extends \Andou\Instantwin\Playprovider {
 
   /**
+   *
+   * @var string
+   */
+  protected static $_lock_file = 'play.lock';
+
+  /**
+   *
+   * @var string
+   */
+  protected static $_res_folder = '/../../res/';
+
+  /**
    * Inizializza la gestione delle giocate
    */
   public function init() {
     ;
+  }
+
+  /**
+   * Determina l'inizio di una giocata
+   */
+  public function startPlay() {
+    
+  }
+
+  /**
+   * Determina la fine di una giocata
+   */
+  public function endPlay() {
+    
+  }
+
+  protected function getResFolder() {
+    return \Andou\Instantwin::app()->getBasePath() . self::$_res_folder;
+  }
+
+  protected function getLockFileName() {
+    return $this->getResFolder() . self::$_lock_file;
+  }
+
+  protected function acquireLock() {
+    
+  }
+
+  protected function releaseLock() {
+    
   }
 
   /**

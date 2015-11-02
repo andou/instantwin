@@ -17,45 +17,77 @@ use Andou\Inireader\Inireader;
 class App {
 
   /**
+   * Gestore delle configurazioni
    *
    * @var Andou\Inireader\Inireader\Inireader
    */
   protected $_config;
 
   /**
+   * File di configurazione
    *
    * @var string
    */
   protected $_config_file;
 
   /**
-   * 
+   * Base path dell'applicazionet
+   *
+   * @var string
    */
-  public function init($config_file) {
-    $this->_config_file = $config_file;
-  }
+  protected $_base_path;
 
   /**
+   * Gestore della giocata corrente
+   *
+   * @var \Andou\Instantwin\Play
+   */
+  protected $_play;
+
+  /**
+   * Determina se la giocata corrente è vincente oppure no
    * 
    * @return boolean
    */
   public function win() {
-    return $this->getOdds()->check();
+    $res = $this->getOdds()->check();
+    $this->endPlay();
+    return $res;
   }
 
   /**
+   * Inizializza l'applicazione
+   * 
+   */
+  public function init($base_path, $config_file) {
+    $this->_base_path = $base_path;
+    $this->_config_file = $this->_base_path . $config_file;
+    $this->initPlay();
+  }
+
+  /**
+   * Restituisce un gestore delle configurazioni
    * 
    * @return Andou\Inireader\Inireader\Inireader
    */
   public function getConfig() {
     if (!isset($this->_config)) {
-//      $config = Inireader::getInstance(__DIR__ . "/../../../configs/config.ini", true);
       $this->_config = Inireader::getInstance($this->_config_file, true);
     }
     return $this->_config;
   }
 
   /**
+   * Restituisce il base path dell'applicazione
+   * 
+   * @return type
+   */
+  public function getBasePath() {
+    return $this->_base_path;
+  }
+
+  /**
+   * Restituisce un randomizzatore
    * 
    * @return \Andou\Instantwin\Rand
    */
@@ -64,6 +96,7 @@ class App {
   }
 
   /**
+   * Restituisce un checker di probabilità
    * 
    * @return \Andou\Instantwin\Odds
    */
@@ -72,6 +105,7 @@ class App {
   }
 
   /**
+   * Restituisce un gestore della distribuzione delle vincite
    * 
    * @return \Andou\Instantwin\Distribution
    */
@@ -80,13 +114,34 @@ class App {
   }
 
   /**
+   * Restituisce un gestore della giocata già inizializzato
    * 
    * @return \Andou\Instantwin\Play
    */
   public function getPlay() {
-    $provider_type = "\\Andou\\Instantwin\\Playprovider\\" . $this->getConfig()->getProvidersPlay();
-    $play_provider = new $provider_type();
-    return new \Andou\Instantwin\Play($play_provider);
+    return $this->initPlay();
+  }
+
+  /**
+   * Inizializza un gestore della giocata
+   * 
+   * @return \Andou\Instantwin\Play
+   */
+  protected function initPlay() {
+    if (!isset($this->_play)) {
+      $provider_type = "\\Andou\\Instantwin\\Playprovider\\" . $this->getConfig()->getProvidersPlay();
+      $play_provider = new $provider_type();
+      $this->_play = new \Andou\Instantwin\Play($play_provider);
+      $this->_play->startPlay();
+    }
+    return $this->_play;
+  }
+
+  /**
+   * Termina la giocata corrente
+   */
+  protected function endPlay() {
+    $this->_play->endPlay();
   }
 
 }

@@ -23,6 +23,16 @@ abstract class Playprovider {
   public abstract function init();
 
   /**
+   * Determina l'inizio di una giocata
+   */
+  public abstract function startPlay();
+
+  /**
+   * Determina la fine di una giocata
+   */
+  public abstract function endPlay();
+
+  /**
    * Restituisce il numero di giocate effettuate fino a questo momento
    */
   public abstract function getPlaysCount();

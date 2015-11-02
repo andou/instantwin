@@ -15,6 +15,11 @@ class InstantWin {
    * @var \Andou\Instantwin\App
    */
   static private $_app;
+
+  /**
+   *
+   * @var string
+   */
   static private $_config_file = "/../../configs/config.ini";
 
   /**
@@ -25,7 +30,7 @@ class InstantWin {
   public static function app() {
     if (null === self::$_app) {
       self::$_app = new \Andou\Instantwin\App();
-      self::$_app->init(__DIR__ . self::$_config_file);
+      self::$_app->init(__DIR__, self::$_config_file);
     }
     return self::$_app;
   }
