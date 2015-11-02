@@ -1,0 +1,33 @@
+{
+  "name": "andou/instantwin",
+  "description": "Instant ween!",
+  "homepage": "http://github.com/andou/instantwin",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Antonio Pastorino",
+      "email": "antonio.pastorino@gmail.com"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "support": {
+    "issues": "https://github.com/andou/instantwin/issues"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=5.3.0",
+    "andou/inireader": "*"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/andou/inireader.git"
+    }
+  ]
+}
