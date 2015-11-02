@@ -40,7 +40,7 @@ class App {
    * @return boolean
    */
   public function win() {
-    return $this->getOdds()->check(0.5);
+    return $this->getOdds()->check();
   }
 
   /**
@@ -73,10 +73,20 @@ class App {
 
   /**
    * 
+   * @return \Andou\Instantwin\Distribution
+   */
+  public function getDistribution() {
+    return new \Andou\Instantwin\Distribution();
+  }
+
+  /**
+   * 
    * @return \Andou\Instantwin\Play
    */
   public function getPlay() {
-    return new \Andou\Instantwin\Play();
+    $provider_type = "\\Andou\\Instantwin\\Playprovider\\" . $this->getConfig()->getProvidersPlay();
+    $play_provider = new $provider_type();
+    return new \Andou\Instantwin\Play($play_provider);
   }
 
 }

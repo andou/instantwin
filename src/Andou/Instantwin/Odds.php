@@ -16,11 +16,10 @@ class Odds {
 
   /**
    * 
-   * @param float $odds
    * @return boolean
    */
-  public function check($odds) {
-    return \Andou\InstantWin::app()->getRand()->rand() <= $odds;
+  public function check() {
+    return \Andou\InstantWin::app()->getRand()->rand() <= \Andou\Instantwin::app()->getDistribution()->getOdds();
   }
 
 }

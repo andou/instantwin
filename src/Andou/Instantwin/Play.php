@@ -15,6 +15,16 @@ namespace Andou\Instantwin;
 class Play {
 
   /**
+   *
+   * @var \Andou\Instantwin\Playprovider
+   */
+  protected $_play_provider;
+
+  public function __construct(\Andou\Instantwin\Playprovider $play_provider) {
+    $this->_play_provider = $play_provider;
+  }
+
+  /**
    * Restituisce la percentuale di tempo rimanente per assegnare le vittorie
    * 
    * @return float
@@ -29,7 +39,7 @@ class Play {
    * @return int
    */
   public function getPlaysCount() {
-    return 100;
+    return $this->_play_provider->getPlaysCount();
   }
 
   /**
@@ -38,7 +48,7 @@ class Play {
    * @return int
    */
   public function getCurrentWinCount() {
-    return 5;
+    return $this->_play_provider->getCurrentWinCount();
   }
 
 }
